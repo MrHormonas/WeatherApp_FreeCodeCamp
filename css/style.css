@@ -1,0 +1,60 @@
+body {
+ /*   background-image: url("");*/
+  background-color: #222;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #DDD;
+}
+
+#others{
+    display: inline-block;
+}
+
+#name{
+  text-align:center;
+  font-size: 64px;
+  font-family:Lobster;
+}
+#city{
+  text-align:center;
+  font-size: 50px;
+  font-family:"Dancing Script";
+  font-style:strong;
+}
+
+#Temp{
+  font-size:100px;
+  color: #DDD;
+  text-align:center;
+}
+#humidity{
+  color: #DDD;
+}
+#weather{
+  color: #DDD;
+}
+#wind{
+  color: #DDD;
+}
+
+.well{
+  padding:5px;
+  background-color: #555;
+  display:inline-block;
+}
+
+.unitsChange .btn{
+  font-size:30px;
+  padding:15px;
+  background-color: #555;
+  border: #555;
+
+}
+
+.unitsChange{
+  text-align:center;
+}
+
+#others{
+  text-align:center;
+}
