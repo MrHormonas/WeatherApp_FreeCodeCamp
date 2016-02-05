@@ -1,22 +1,23 @@
 var x = document.getElementById("test");
 var PosCor = [];
+var APIkey = "d960df4869f4f5b6c5fc49e3d479cbfe";
 getLocation();
 
 function getLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition, showError);
   } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
+    console.log("Geolocation is not supported by this browser.");
   }
 }
 
 function showPosition(position) {
+  console.log(position);
   var latlon = position.coords.latitude + "," + position.coords.longitude;
   PosCor[0] = position.coords.latitude;
   PosCor[1] = position.coords.longitude;
   var img_url = "http://maps.googleapis.com/maps/api/staticmap?center=" + latlon + "&zoom=14&size=400x300&sensor=false";
   document.getElementById("mapholder").innerHTML = "<img src='" + img_url + "'>";
-
   //VOU BUSCAR DADOS
   getCity();
 }
@@ -24,27 +25,29 @@ function showPosition(position) {
 function showError(error) {
   switch (error.code) {
     case error.PERMISSION_DENIED:
-      x.innerHTML = "User denied the request for Geolocation."
+      console.log("User denied the request for Geolocation.");
       break;
     case error.POSITION_UNAVAILABLE:
-      x.innerHTML = "Location information is unavailable."
+      console.log("Location information is unavailable.");
       break;
     case error.TIMEOUT:
-      x.innerHTML = "The request to get user location timed out."
+      console.log("The request to get user location timed out.");
       break;
     case error.UNKNOWN_ERROR:
-      x.innerHTML = "An unknown error occurred."
+      console.log("An unknown error occurred.");
       break;
   }
 }
 
 function getCity() {
-  var weatherAPI = "//api.openweathermap.org/data/2.5/weather?lat=" + PosCor[0] + "&lon=" +  PosCor[1]+"&units=metric";
+  var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?lat=" + PosCor[0] + "&lon=" +  PosCor[1] + "&appid=" + APIkey + "&units=metric";
+  console.log(weatherAPI);
 
     $.ajax({
       url:   weatherAPI,
       dataType: "json",
       success: function(data) {
+        console.log(data);
         document.getElementById("city").innerHTML = "<strong>"+data.name+"</strong>";
         document.getElementById("Temp").innerHTML = ""+data.main.temp.toFixed(2)+" ºC";
         document.getElementById("weather").innerHTML = "<img src='http://openweathermap.org/img/w/" + data.weather[0].icon + ".png'>"+data.weather[0].description+"";
@@ -91,6 +94,6 @@ var degToCard = function(deg){
   }else if (deg>360 || deg<0){
     return "null";
   }else{
-    return "N"; 
+    return "N";
   }
 }
