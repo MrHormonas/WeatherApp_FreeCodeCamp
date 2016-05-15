@@ -40,7 +40,7 @@ function showError(error) {
 }
 
 function getCity() {
-  var weatherAPI = "https://api.openweathermap.org/data/2.5/weather?lat=" + PosCor[0] + "&lon=" +  PosCor[1] + "&appid=" + APIkey + "&units=metric";
+  var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?lat=" + PosCor[0] + "&lon=" +  PosCor[1] + "&appid=" + APIkey + "&units=metric";
   console.log(weatherAPI);
 
     $.ajax({
@@ -48,7 +48,6 @@ function getCity() {
       dataType: "json",
       success: function(data) {
         console.log(data);
-        console.log("hey");
         document.getElementById("city").innerHTML = "<strong>"+data.name+"</strong>";
         document.getElementById("Temp").innerHTML = ""+data.main.temp.toFixed(2)+" ºC";
         document.getElementById("weather").innerHTML = "<img src='https://openweathermap.org/img/w/" + data.weather[0].icon + ".png'>"+data.weather[0].description+"";
