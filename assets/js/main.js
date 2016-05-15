@@ -48,6 +48,7 @@ function getCity() {
       dataType: "json",
       success: function(data) {
         console.log(data);
+        console.log("hey");
         document.getElementById("city").innerHTML = "<strong>"+data.name+"</strong>";
         document.getElementById("Temp").innerHTML = ""+data.main.temp.toFixed(2)+" ºC";
         document.getElementById("weather").innerHTML = "<img src='https://openweathermap.org/img/w/" + data.weather[0].icon + ".png'>"+data.weather[0].description+"";
