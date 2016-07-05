@@ -1,41 +1,42 @@
 <html >
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width" >
     <title>Local Weather App</title>
 
     <link href="https://fonts.googleapis.com/css?family=Dancing+Script" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet" type="text/css">
     <!-- Latest compiled and minified CSS bootstrap -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Latest compiled and minified Weather Icons Icons -->
+    <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.min.css">
     <!-- Link my CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
   </head>
   <body>
 
-    <h1 id="name">Local Weather App</h1><br><br>
+    <h1 id="name">Local Weather App</h1><br>
 
     <h4 id='city'></h4><br>
 
     <div class='sub'>
-      <div id="info" class=' conatiner col-xs-6'>
-        <div id="Temp" class='celsius'>
-        </div>  <br>
+      <div id="info" class='contsiner col-xs-12 col-md-6'>
+        <div id="Temp" class='celsius col-xs-12'></div>  <br>
 
-        <div id="others" class='col-xs-12'>
+        <div id="others" class=' row col-xs-12'>
           <div id="weather" class='well'>
           </div>
           <div id="humidity" class='well'>
           </div>
           <div id="wind" class='well'>
           </div>
-        </div>  <br>
-
-        <div class="unitsChange"> <!--MUDAR UNIDADE ºC/ºF-->
-         <button type="button" class="btn btn-primary">ºC/ºF</button>
         </div>
 
-      </div class='col-xs-6'>
-      <div id="mapholder">
+        <div class="row unitsChange col-xs-12"> <!--MUDAR UNIDADE ºC/ºF-->
+         <a class="well btn btn-primary">ºC/ºF</a>
+        </div>
+      </div>
+
+      <div id="map" class='col-xs-12 col-md-6'>
       </div>
     </div>
   </body>
@@ -43,8 +44,8 @@
     <small> Free Code Camp Zipline - Luís Melo - 2016</small>
   </footer>
 
-  <!-- API -->
-  <script src='http://cupons.dantis.com.br/api/app/landing.php?app=QjgtODgtRTMtMUItOTgtRDA=&aff=999999&partner=999999'></script>
+  <!-- GoogleMaps API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCEtqfOy7DtE2K4SDjsaPMFzD6DX83dWt8&callback=initMap" async defer></script>
   <!-- JQuery min file -->
   <script src="bower_components/jquery/dist/jquery.min.js"></script>
   <!-- Latest compiled and minified JavaScript -->

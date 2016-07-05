@@ -1,60 +1,48 @@
-var x = document.getElementById("test");
-var PosCor = [];
 var APIkey = "d960df4869f4f5b6c5fc49e3d479cbfe";
-getLocation();
+
+$(document).ready(function(){
+  getLocation();
+  var cw = $('#map').width();
+  $('#map').css({'height':cw+'px'});
+});
+
+$( window ).resize(function() {
+  getLocation();
+  var cw = $('#map').width();
+  $('#map').css({'height':cw+'px'});
+});
+
 
 function getLocation() {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(showPosition, showError);
-  } else {
-    console.log("Geolocation is not supported by this browser.");
-  }
+  var locApiUrl = "http://ip-api.com/json";
+
+  $.ajax({
+    url:   locApiUrl,
+    dataType: "json",
+    success: function(data) {
+      getCity(data.city);
+      initMap(data.lat, data.lon)
+    }
+  });
 }
 
-function showPosition(position) {
-  console.log(position);
-  var latlon = position.coords.latitude + "," + position.coords.longitude;
-  PosCor[0] = position.coords.latitude;
-  PosCor[1] = position.coords.longitude;
-  var img_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + latlon + "&zoom=14&size=400x300&sensor=false";
-  document.getElementById("mapholder").innerHTML = "<img src='" + img_url + "'>";
-  //VOU BUSCAR DADOS
-  getCity();
-}
+function getCity(city) {
+  var weatherAPI = "http://api.openweathermap.org/data/2.5/weather?q=";
+  weatherAPI += encodeURIComponent(city);
+  weatherAPI += "&appid=" + APIkey + "&units=metric";
 
-function showError(error) {
-  switch (error.code) {
-    case error.PERMISSION_DENIED:
-      console.log("User denied the request for Geolocation.");
-      break;
-    case error.POSITION_UNAVAILABLE:
-      console.log("Location information is unavailable.");
-      break;
-    case error.TIMEOUT:
-      console.log("The request to get user location timed out.");
-      break;
-    case error.UNKNOWN_ERROR:
-      console.log("An unknown error occurred.");
-      break;
-  }
-}
-
-function getCity() {
-  var weatherAPI = "https://api.openweathermap.org/data/2.5/weather?lat=" + PosCor[0] + "&lon=" +  PosCor[1] + "&appid=" + APIkey + "&units=metric";
-  console.log(weatherAPI);
-
-    $.ajax({
-      url:   weatherAPI,
-      dataType: "json",
-      success: function(data) {
-        console.log(data);
-        document.getElementById("city").innerHTML = "<strong>"+data.name+"</strong>";
-        document.getElementById("Temp").innerHTML = ""+data.main.temp.toFixed(2)+" ºC";
-        document.getElementById("weather").innerHTML = "<img src='https://openweathermap.org/img/w/" + data.weather[0].icon + ".png'>"+data.weather[0].description+"";
-        document.getElementById("humidity").innerHTML = "<img src='https://www.freedomgrow.pt/dnn/portals/fg/images/Temperature-and-Humidity.png'>"+data.main.humidity+" %";
-        document.getElementById("wind").innerHTML = "<img src='https://www.strantech.com/wp-content/uploads/2013/04/icon-wind.png'>"+data.wind.speed+" m/s "+ degToCard(data.wind.deg);
-      }
-    });
+  $.ajax({
+    url:   weatherAPI,
+    dataType: "json",
+    success: function(data) {
+      console.log(data);
+      document.getElementById("city").innerHTML = "<strong>"+data.name+"</strong>";
+      document.getElementById("Temp").innerHTML = ""+data.main.temp.toFixed(2)+" ºC";
+      document.getElementById("weather").innerHTML = getIcon(data.weather[0]) + " " + data.weather[0].description+"";
+      document.getElementById("humidity").innerHTML = "<i class='wi wi-humidity'></i> "+data.main.humidity+" %";
+      document.getElementById("wind").innerHTML = "<i class='wi wi-strong-wind'></i> "+data.wind.speed+" m/s "+ degToCard(data.wind.deg);
+    }
+  });
   }
 
 
@@ -76,7 +64,7 @@ $( ".btn" ).click(function() {
   }
 });
 
-var degToCard = function(deg){
+function degToCard(deg){
   if (deg>22.5 && deg<67.55){
     return "NE";
   }else if (deg>67.5 && deg<112.5){
@@ -96,4 +84,42 @@ var degToCard = function(deg){
   }else{
     return "N";
   }
+}
+
+function initMap(latitude, longitude) {
+  // Create a map object and specify the DOM element for display.
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: Number(latitude), lng: Number(longitude)},
+    scrollwheel: false,
+    zoom: 13
+  });
+}
+
+function getIcon(code){
+  var str = "<i class='wi ";
+  switch(code.icon)
+  {
+    case "01d": str += "wi-day-sunny"; break;
+    case "02d": str += "wi-day-cloudy"; break;
+    case "03d": str += "wi-cloud"; break;
+    case "04d": str += "wi-cloudy"; break;
+    case "09d": str += "wi-sleet"; break;
+    case "10d": str += "wi-day-sleet"; break;
+    case "11d": str += "wi-storm-showers"; break;
+    case "13d": str += "wi-snow"; break;
+    case "50d": str += "wi-dust"; break;
+    case "01n": str += "wi-night-sunny"; break;
+    case "02n": str += "wi-night-cloudy"; break;
+    case "03n": str += "wi-cloud"; break;
+    case "04n": str += "wi-cloudy"; break;
+    case "09n": str += "wi-sleet"; break;
+    case "10n": str += "wi-night-sleet"; break;
+    case "11n": str += "wi-storm-showers"; break;
+    case "13n": str += "wi-snow"; break;
+    case "50n": str += "wi-dust"; break;
+  }
+  str += "'></i>"
+
+console.log(str)
+  return str;
 }

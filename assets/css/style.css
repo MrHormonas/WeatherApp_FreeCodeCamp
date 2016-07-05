@@ -1,13 +1,13 @@
+.btn:active, .btn:focus, .btn:hover{
+    border:none !important;
+    outline:none !important;
+}
 body {
  /*   background-image: url("");*/
   background-color: #222;
   background-size: cover;
   background-attachment: fixed;
   color: #DDD;
-}
-
-#others{
-    display: inline-block;
 }
 
 #name{
@@ -24,40 +24,88 @@ body {
 
 #Temp{
   font-size:100px;
-  color: #DDD;
   text-align:center;
 }
-#humidity{
-  color: #DDD;
+
+.unitsChange{
+  width: 20%;
+  margin-left: 40%;
 }
-#weather{
-  color: #DDD;
+
+.btn:focus, .btn:hover, .btn:active, .btn {
+  outline: none;
+  background-color: green;
+  font-size:30px;
+  background-color: #555;
+  text-align:center;
+  border: 1px solid #ddd;
+  width: 100%!important;
 }
-#wind{
+
+#others{
+  text-align:center;
+  width: 100%;
+  display: inline-block;
   color: #DDD;
 }
 
 .well{
+  text-align: center;
+  width: 30%;
   padding:5px;
   background-color: #555;
   display:inline-block;
 }
 
-.unitsChange .btn{
-  font-size:30px;
-  padding:15px;
-  background-color: #555;
-  border: #555;
-
+#map{
+  width: 25%;
+  border-radius:100%;
+  margin-left: 12.5%;
+  margin-right: 12.5%;
 }
 
-.unitsChange{
-  text-align:center;
+
+@media (max-width: 768px) {
+  #name{
+    font-size: 32px;
+
+  }
+  #city{
+    font-size: 24px;
+  }
+
+  #Temp{
+    font-size: 25px;
+  }
+
+  .unitsChange{
+    width: 100%;
+    margin: 0 auto;
+    padding: 0
+  }
+  .btn{
+    width: 110%;
+    font-size:16px;
+  }
+
+  #map{
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+  }
+
+  .well{
+    width:100%;
+  }
+
+  #others{
+    text-align:center;
+    width: 110%;
+    display: inline-block;
+    color: #DDD;
+  }
 }
 
-#others{
-  text-align:center;
-}
 
 
 footer{
@@ -69,4 +117,5 @@ footer{
   left:0;
   text-align: center;
   color: #DDD;
+  font-size: 15px;
 }
