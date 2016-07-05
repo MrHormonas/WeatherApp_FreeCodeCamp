@@ -16,7 +16,7 @@ function showPosition(position) {
   var latlon = position.coords.latitude + "," + position.coords.longitude;
   PosCor[0] = position.coords.latitude;
   PosCor[1] = position.coords.longitude;
-  var img_url = "https://maps.googleapis.com/maps/api/staticmap?center=" + latlon + "&zoom=14&size=400x300&sensor=false";
+  var img_url = "http://maps.googleapis.com/maps/api/staticmap?center=" + latlon + "&zoom=14&size=400x300&sensor=false";
   document.getElementById("mapholder").innerHTML = "<img src='" + img_url + "'>";
   //VOU BUSCAR DADOS
   getCity();
@@ -50,9 +50,9 @@ function getCity() {
         console.log(data);
         document.getElementById("city").innerHTML = "<strong>"+data.name+"</strong>";
         document.getElementById("Temp").innerHTML = ""+data.main.temp.toFixed(2)+" ºC";
-        document.getElementById("weather").innerHTML = "<img src='https://openweathermap.org/img/w/" + data.weather[0].icon + ".png'>"+data.weather[0].description+"";
-        document.getElementById("humidity").innerHTML = "<img src='https://www.freedomgrow.pt/dnn/portals/fg/images/Temperature-and-Humidity.png'>"+data.main.humidity+" %";
-        document.getElementById("wind").innerHTML = "<img src='https://www.strantech.com/wp-content/uploads/2013/04/icon-wind.png'>"+data.wind.speed+" m/s "+ degToCard(data.wind.deg);
+        document.getElementById("weather").innerHTML = "<img src='http://openweathermap.org/img/w/" + data.weather[0].icon + ".png'>"+data.weather[0].description+"";
+        document.getElementById("humidity").innerHTML = "<img src='http://www.freedomgrow.pt/dnn/portals/fg/images/Temperature-and-Humidity.png'>"+data.main.humidity+" %";
+        document.getElementById("wind").innerHTML = "<img src='http://www.strantech.com/wp-content/uploads/2013/04/icon-wind.png'>"+data.wind.speed+" m/s "+ degToCard(data.wind.deg);
       }
     });
   }
